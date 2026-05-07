@@ -1,7 +1,7 @@
 package dev.diegoamigo.prestamos.controller;
 
 import dev.diegoamigo.prestamos.dto.PrestamoDTO;
-import dev.diegoamigo.prestamos.model.Prestamo ;
+import dev.diegoamigo.prestamos.model.Prestamo;
 import dev.diegoamigo.prestamos.service.PrestamoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
