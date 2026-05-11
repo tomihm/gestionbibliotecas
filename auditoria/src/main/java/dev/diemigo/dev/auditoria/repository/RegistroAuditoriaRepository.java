@@ -1,6 +1,6 @@
-package dev.diemigo.dev.prestamo.repository;
+package dev.diemigo.dev.auditoria.repository;
 
-import dev.diemigo.dev.prestamo.model.RegistroAuditoria;
+import dev.diemigo.dev.auditoria.model.RegistroAuditoria;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,4 +1,4 @@
-package dev.diemigo.dev.prestamo.model;
+package dev.diemigo.dev.auditoria.model;
 
 
 import jakarta.persistence.*;
