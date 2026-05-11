@@ -26,6 +26,12 @@
         <module>auditoria</module>
         <module>notificaciones</module>
         <module>usuarios</module>
+        <module>reserva</module>
+        <module>proveedor</module>
+        <module>prestamos</module>
+        <module>multas</module>
+        <module>devoluciones</module>
+
     </modules>
 
     <dependencyManagement>
