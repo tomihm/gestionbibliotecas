@@ -1,0 +1,8 @@
+2026-05-20T18:23:39.088-04:00 DEBUG 14136 --- [devoluciones] [main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@a20b94b
+2026-05-20T18:23:46.040-04:00  WARN 14136 --- [devoluciones] [main] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-05-20T18:23:48.354-04:00  WARN 14136 --- [devoluciones] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-05-20T18:23:49.009-04:00 DEBUG 14136 --- [devoluciones] [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 6 mappings in 'requestMappingHandlerMapping'
+2026-05-20T18:23:49.125-04:00 DEBUG 14136 --- [devoluciones] [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2026-05-20T18:23:49.229-04:00 DEBUG 14136 --- [devoluciones] [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 2 RequestBodyAdvice, 1 ResponseBodyAdvice
+2026-05-20T18:23:49.380-04:00 DEBUG 14136 --- [devoluciones] [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2026-05-20T18:23:51.590-04:00 DEBUG 14136 --- [devoluciones] [SpringApplicationShutdownHook] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@a20b94b, started on Wed May 20 18:23:39 GMT-04:00 2026
