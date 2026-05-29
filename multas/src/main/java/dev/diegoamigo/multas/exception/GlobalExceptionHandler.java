@@ -5,7 +5,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -20,9 +19,9 @@ public class GlobalExceptionHandler {
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleNotFound(EntityNotFoundException ex) {
+    public ResponseEntity<ErrorReponse> handleNotFound(EntityNotFoundException ex) {
         log.warn("Multa no encontrada: {}", ex.getMessage());
-        ErrorResponse error = ErrorResponse.builder()
+        ErrorReponse error = ErrorReponse.builder()
                 .status(HttpStatus.NOT_FOUND.value())
                 .message("Multa no encontrada")
                 .detail(ex.getMessage())
@@ -32,8 +31,8 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ErrorResponse> handleValidation(MethodArgumentNotValidException ex) {
-        List<ErrorResponse.field> fieldErrors = ex.getBindingResult()
+    public ResponseEntity<ErrorReponse> handleValidation(MethodArgumentNotValidException ex) {
+        List<ErrorReponse.FieldError> fieldErrors = ex.getBindingResult()
                 .getFieldErrors()
                 .stream()
                 .map(err -> ErrorReponse.FieldError.builder()
@@ -42,7 +41,7 @@ public class GlobalExceptionHandler {
                         .build())
                 .collect(Collectors.toList());
 
-        ErrorResponse error = ErrorResponse.builder()
+        ErrorReponse error = ErrorReponse.builder()
                 .status(HttpStatus.BAD_REQUEST.value())
                 .message("Errores de validación")
                 .fieldErrors(fieldErrors)
@@ -52,14 +51,15 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> handleGeneric(Exception ex) {
+    public ResponseEntity<ErrorReponse> handleGeneric(Exception ex) {
         log.error("Error interno: {}", ex.getMessage(), ex);
-        ErrorResponse error = ErrorResponse.builder()
+        ErrorReponse error = ErrorReponse.builder()
                 .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
                 .message("Error interno del servidor")
                 .detail(ex.getMessage())
                 .timestamp(LocalDateTime.now())
                 .build();
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
+
     }
 }
