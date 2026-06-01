@@ -2,6 +2,7 @@ package dev.diemigo.dev.auditoria.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.time.LocalDateTime;
 
@@ -9,8 +10,9 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper = false)
 
-public class AuditoriaDTO {
+public class AuditoriaDTO extends RepresentationModel<AuditoriaDTO> { //evitar bucles con los enlances heredados
     @NotBlank(message= "El servicio origen no puede estar vacio")
     private String servicioOrigen;
 

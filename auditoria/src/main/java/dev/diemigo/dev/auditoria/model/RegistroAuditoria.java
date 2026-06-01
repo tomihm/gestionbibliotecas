@@ -10,7 +10,13 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "registros_auditoria")
+@Table(name = "RegistrosAuditoria",
+        indexes = {
+        @Index(name = "idx_servicio_origen", columnList = "servicio_origen"),
+        @Index(name= "idx_resultado", columnList = "resultado"),
+        @Index(name = "idx_fecha_hora", columnList = "fecha_hora")
+        }
+)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,11 +26,9 @@ public class RegistroAuditoria {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "El servicio origen no puede estar vacío")
     @Column(nullable = false)
     private String servicioOrigen;
 
-    @NotBlank(message = "La acción no puede estar vacía")
     @Column(nullable = false)
     private String accion;
 

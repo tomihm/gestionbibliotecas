@@ -7,20 +7,25 @@ import jakarta.persistence.EntityNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
+import lombok.AllArgsConstructor; //nuevo
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@AllArgsConstructor
 @Service
 public class AuditoriaService {
+
 
     private static final Logger log = LoggerFactory.getLogger(AuditoriaService.class);
 
     @Autowired
     private RegistroAuditoriaRepository auditoriaRepository;
 
+    @Transactional
     public AuditoriaDTO registrar(AuditoriaDTO dto) {
         log.debug("Convirtiendo DTO a Entidad para servicio: {}", dto.getServicioOrigen());
 
