@@ -2,6 +2,7 @@ package data.notificaciones.service;
 
 import data.notificaciones.model.Notificacion;
 import data.notificaciones.repository.NotificacionRepository;
+import data.notificaciones.model.DTO.DTONotificaciones;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

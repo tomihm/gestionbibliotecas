@@ -2,6 +2,7 @@ package data.notificaciones.controller;
 
 import data.notificaciones.model.Notificacion;
 import data.notificaciones.service.NotificacionService;
+import data.notificaciones.model.DTO.DTONotificaciones;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
