@@ -18,8 +18,8 @@
         <module name="libros" />
         <module name="multas" />
         <module name="usuarios" />
-        <module name="inventario" />
         <module name="prestamos" />
+        <module name="inventario" />
         <module name="devoluciones" />
       </profile>
       <profile name="Annotation profile for notificaciones" enabled="true">
