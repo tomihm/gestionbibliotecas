@@ -2,7 +2,7 @@ package data.notificaciones.controller;
 
 import data.notificaciones.model.Notificacion;
 import data.notificaciones.service.NotificacionService;
-import data.notificaciones.model.DTO.DTONotificaciones;
+import data.notificaciones.model.DTO.DTONotificacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,8 +13,6 @@ import java.util.List;
 public class notificacionController {
     @Autowired
     private NotificacionService NotificacionService;
-
-    {}
 
     @GetMapping
     public List<Notificacion> findAll() {
