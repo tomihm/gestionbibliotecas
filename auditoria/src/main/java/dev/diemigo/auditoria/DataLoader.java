@@ -1,4 +1,4 @@
-package dev.diemigo.dev.auditoria;
+package dev.diemigo.auditoria;
 
 import dev.diemigo.dev.auditoria.model.RegistroAuditoria;
 import dev.diemigo.dev.auditoria.repository.RegistroAuditoriaRepository;

@@ -1,4 +1,4 @@
-package dev.diemigo.dev.auditoria.controller;
+package dev.diemigo.auditoria.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.diemigo.dev.auditoria.dto.AuditoriaDTO;

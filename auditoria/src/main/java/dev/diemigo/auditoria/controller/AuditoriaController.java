@@ -1,4 +1,4 @@
-package dev.diemigo.dev.auditoria.controller;
+package dev.diemigo.auditoria.controller;
 
 // IMPORTACIONES DE SPRING Y HATEOAS
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;

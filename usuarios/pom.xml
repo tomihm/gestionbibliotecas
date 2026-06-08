@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>dev.diemigo</groupId>
-	<artifactId>usuarios</artifactId>
+	<artifactId>multas</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>usuarios</name>
+	<name/>
 	<description/>
 	<url/>
 	<licenses>

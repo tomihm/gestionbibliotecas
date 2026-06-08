@@ -1,4 +1,4 @@
-package dev.diemigo.dev.auditoria.assembler;
+package dev.diemigo.auditoria.assembler;
 
 import dev.diemigo.dev.auditoria.controller.AuditoriaController;
 import dev.diemigo.dev.auditoria.dto.AuditoriaDTO;

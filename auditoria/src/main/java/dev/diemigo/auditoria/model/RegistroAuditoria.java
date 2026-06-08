@@ -1,4 +1,4 @@
-package dev.diemigo.dev.auditoria.model;
+package dev.diemigo.auditoria.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

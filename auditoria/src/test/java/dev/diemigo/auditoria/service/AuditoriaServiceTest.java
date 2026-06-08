@@ -1,4 +1,4 @@
-package dev.diemigo.dev.auditoria.service;
+package dev.diemigo.auditoria.service;
 
 import dev.diemigo.dev.auditoria.dto.AuditoriaDTO;
 import dev.diemigo.dev.auditoria.model.RegistroAuditoria;

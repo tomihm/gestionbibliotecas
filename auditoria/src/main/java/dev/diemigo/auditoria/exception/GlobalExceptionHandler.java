@@ -1,4 +1,4 @@
-package dev.diemigo.dev.auditoria.exception;
+package dev.diemigo.auditoria.exception;
 
 import dev.diemigo.dev.auditoria.dto.ErrorResponse;
 import jakarta.persistence.EntityNotFoundException;

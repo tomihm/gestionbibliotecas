@@ -1,4 +1,4 @@
-package dev.diemigo.dev.auditoria.dto;
+package dev.diemigo.auditoria.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;//consulta
 import jakarta.validation.constraints.NotBlank;
