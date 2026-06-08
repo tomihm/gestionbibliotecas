@@ -12,8 +12,8 @@
         <relativePath/>
     </parent>
 
-    <groupId>dev</groupId>
-    <artifactId>diemigo</artifactId>
+    <groupId>dev.diemigo</groupId>
+    <artifactId>Microservicios</artifactId>
     <version>1.0.0</version>
     <packaging>pom</packaging>
 
