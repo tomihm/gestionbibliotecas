@@ -2,6 +2,7 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
@@ -43,10 +44,12 @@
         </processorPath>
         <module name="libros" />
         <module name="multas" />
+        <module name="multas (1)" />
+        <module name="multas (2)" />
         <module name="auditoria" />
         <module name="usuarios" />
-        <module name="inventario" />
         <module name="prestamos" />
+        <module name="inventario" />
         <module name="devoluciones" />
       </profile>
     </annotationProcessing>
@@ -58,6 +61,8 @@
       <module name="inventario" options="-parameters" />
       <module name="libros" options="-parameters" />
       <module name="multas" options="-parameters" />
+      <module name="multas (1)" options="-parameters" />
+      <module name="multas (2)" options="-parameters" />
       <module name="notificaciones" options="-parameters" />
       <module name="prestamos" options="-parameters" />
       <module name="proveedores" options="-parameters" />

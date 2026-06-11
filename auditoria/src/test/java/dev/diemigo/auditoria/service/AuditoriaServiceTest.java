@@ -1,8 +1,8 @@
 package dev.diemigo.auditoria.service;
 
-import dev.diemigo.dev.auditoria.dto.AuditoriaDTO;
-import dev.diemigo.dev.auditoria.model.RegistroAuditoria;
-import dev.diemigo.dev.auditoria.repository.RegistroAuditoriaRepository;
+import dev.diemigo.auditoria.dto.AuditoriaDTO;
+import dev.diemigo.auditoria.model.RegistroAuditoria;
+import dev.diemigo.auditoria.repository.RegistroAuditoriaRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
