@@ -9,28 +9,37 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/notificaciones")
-public class notificacionController {
+public class NotificacionController {
     @Autowired
-    private NotificacionService NotificacionService;
+    private NotificacionService notificacionService;
 
     @GetMapping
     public List<DTONotificaciones> findAll() {
-        return NotificacionService.obtenerNotificaciones();
+        return notificacionService.obtenerNotificaciones();
 
     }
 
     @GetMapping("/{id}")
     public DTONotificaciones findById(@PathVariable int id) {
 
-        return NotificacionService.getNotificacionesById(id);
+        return notificacionService.getNotificacionesById(id);
     }
 
+    @PostMapping
+    public DTONotificaciones createNotificacion(@RequestBody DTONotificaciones notificacion) {
+        return notificacionService.addNotificacion(notificacion);
+    }
+
+    @PutMapping()
+    public DTONotificaciones actualizarNotificacion(@RequestBody DTONotificaciones notificacion) {
+        return notificacionService.actualizarNotificacion(notificacion);
+    }
 
 
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable int id)
     {
-        NotificacionService.deleteNotificaciones(id);
+        notificacionService.deleteNotificaciones(id);
     }
 
 }

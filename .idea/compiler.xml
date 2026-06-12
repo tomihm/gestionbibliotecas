@@ -8,24 +8,6 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
       </profile>
-      <profile name="Annotation profile for notificaciones" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="false">
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.44/lombok-1.18.44.jar" />
-        </processorPath>
-        <module name="notificaciones" />
-      </profile>
-      <profile name="Annotation profile for proveedores" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="false">
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.44/lombok-1.18.44.jar" />
-        </processorPath>
-        <module name="proveedores" />
-      </profile>
       <profile name="Annotation profile for reservas" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
@@ -44,12 +26,14 @@
         </processorPath>
         <module name="libros" />
         <module name="multas" />
+        <module name="proveedores" />
+        <module name="notificaciones" />
         <module name="multas (1)" />
         <module name="multas (2)" />
         <module name="auditoria" />
         <module name="usuarios" />
-        <module name="prestamos" />
         <module name="inventario" />
+        <module name="prestamos" />
         <module name="devoluciones" />
       </profile>
     </annotationProcessing>

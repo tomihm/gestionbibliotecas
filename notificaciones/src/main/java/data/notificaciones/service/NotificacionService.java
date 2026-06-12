@@ -1,12 +1,12 @@
 package data.notificaciones.service;
 
-import data.notificaciones.exception.NotFoundException;
 import data.notificaciones.model.Notificacion;
 import data.notificaciones.repository.NotificacionRepository;
 import data.notificaciones.model.DTO.DTONotificaciones;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.stream.Collectors;
 import java.util.List;
@@ -29,15 +29,31 @@ public class NotificacionService {
 
 
     public DTONotificaciones getNotificacionesById (int id){
-        Notificacion notificacion = repositoryNotificacion.findById(id).orElseThrow(); new NotFoundException("");
+        Notificacion notificacion = repositoryNotificacion.findById(id).orElseThrow();
         return convertirDTO(notificacion);
     }
 
 
-    public DTONotificaciones addNotificacion(Notificacion modelNotificacion){
-        repositoryNotificacion.save(modelNotificacion);
-        return modelNotificacion;
+    public DTONotificaciones addNotificacion(DTONotificaciones nuevoNotificacionDTO){
+        Notificacion notificacion = new Notificacion();
+        notificacion.setDia_entrega(nuevoNotificacionDTO.getDia_entrega());
+        notificacion.setNotificacion_titulo(nuevoNotificacionDTO.getNotificacion_titulo());
+        notificacion.setDescripcion(nuevoNotificacionDTO.getDescripcion());
+
+        Notificacion guardado = repositoryNotificacion.save(notificacion);
+        return convertirDTO(guardado);
     }
+    public DTONotificaciones actualizarNotificacion(DTONotificaciones notificacionDTO) {
+        Notificacion notificacion = repositoryNotificacion.findById(notificacionDTO);{
+            if (notificacion == null){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"no se ha encontrado el archivo");
+
+            }
+        }
+        return convertirDTO(notificacion);
+    }
+
+
     public void deleteNotificaciones(int id){repositoryNotificacion.deleteById(id);
     }
 

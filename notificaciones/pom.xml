@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>4.0.5</version>
+		<version>4.0.7</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>data</groupId>
@@ -68,6 +68,11 @@
 			<artifactId>spring-boot-starter-webmvc-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>3.0.3</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -119,6 +124,11 @@
 						</configuration>
 					</execution>
 				</executions>
+				<configuration>
+					<source>21</source>
+					<target>21</target>
+					<compilerArgs>--enable-preview</compilerArgs>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

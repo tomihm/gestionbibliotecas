@@ -16,7 +16,7 @@ public class Notificacion {
     private Date dia_entrega;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int ID;
+    private int id;
     @NotNull
     private String notificacion_titulo;
     @NotNull
