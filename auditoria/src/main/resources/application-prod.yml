@@ -1,11 +1,11 @@
 spring:
   application:
-    name: test.auditoria
+    name: prod.auditoria
 
   datasource:
-    url: jdbc:mysql://localhost:3306/test_auditoria
-    username: test
-    password: test123
+    url: jdbc:mysql://localhost:3306/prod_auditoria
+    username: prod
+    password: prod123
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
@@ -20,7 +20,7 @@ spring:
     baseline-on-migrate: true
 
 server:
-  port: 8081
+  port: ${PORT}
 
 springdoc:
   swagger-ui:

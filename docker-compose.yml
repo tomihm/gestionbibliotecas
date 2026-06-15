@@ -1,0 +1,37 @@
+services:
+
+  mysql:
+    image: mysql:8.4
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: dev_auditoria
+      MYSQL_USER: dev
+      MYSQL_PASSWORD: dev123
+      MYSQL_ROOT_PASSWORD: root123
+    ports:
+      - "3307:3306"
+
+  eurekaserver:
+    image: eurekaserver:1.0
+    container_name: eurekaserver
+    ports:
+      - "8761:8761"
+
+  auditoria:
+    image: auditoria:1.0
+    container_name: auditoria
+    depends_on:
+      - mysql
+      - eurekaserver
+    ports:
+      - "8080:8080"
+
+  apigateway:
+    image: apigateway:1.0
+    container_name: apigateway
+    depends_on:
+      - auditoria
+      - eurekaserver
+    ports:
+      - "8081:8081"

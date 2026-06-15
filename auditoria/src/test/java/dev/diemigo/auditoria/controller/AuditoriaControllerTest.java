@@ -7,11 +7,14 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
+import dev.diemigo.auditoria.assembler.AuditoriaModelAssembler;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -22,7 +25,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@ActiveProfiles("test")
 @WebMvcTest(AuditoriaController.class)
+@AutoConfigureMockMvc(addFilters = false)
 class AuditoriaControllerTest {
 
     @Autowired
@@ -32,6 +37,9 @@ class AuditoriaControllerTest {
 
     @MockitoBean //error no es mockbean en la version spring 4
     private AuditoriaService auditoriaService;
+
+    @MockitoBean
+    private AuditoriaModelAssembler auditoriaModelAssembler;
 
     @Test
     @DisplayName("Debe retornar 200 al consultar auditoría por ID")
@@ -109,4 +117,5 @@ class AuditoriaControllerTest {
         mockMvc.perform(delete("/api/auditoria/1"))
                 .andExpect(status().isNoContent());
     }
+
 }

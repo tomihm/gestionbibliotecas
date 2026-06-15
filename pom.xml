@@ -33,6 +33,8 @@
         <module>inventario</module>
         <module>libros</module>
         <module>usuarios</module>
+        <module>eurekaserver</module>
+        <module>apigateway</module>
     </modules>
 
     <dependencyManagement>

@@ -3,7 +3,7 @@ spring:
     name: auditoria
 
   datasource:
-    url: jdbc:mysql://localhost:3306/dev_auditoria
+    url: jdbc:mysql://mysql:3306/dev_auditoria
     username: dev
     password: dev123
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -11,29 +11,22 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
-    show-sql: false
 
   flyway:
     enabled: true
     locations: classpath:db/migration
     baseline-on-migrate: true
 
-server:
-  port: 8080
-
-springdoc:
-  swagger-ui:
-    path: /swagger-ui.html
-  enable-hateoas: false
-
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://eurekaserver:8761/eureka/
     register-with-eureka: true
     fetch-registry: true
 
-logging:
-  level:
-    dev.diemigo.auditoria: DEBUG
-    org.hibernate.SQL: WARN
+  logging:
+    level:
+      org.flywaydb: DEBUG
+      org.springframework.boot.autoconfigure.flyway: DEBUG
+
+
