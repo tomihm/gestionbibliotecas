@@ -16,12 +16,24 @@ public class proveedorController {
         return proveedorService.findAll();
     }
 
-    @GetMapping("/{id}")
-    public proveedor findById(@PathVariable @RequestParam int id) {
+    @GetMapping("Id")
+    public proveedor findById(@RequestParam Integer id) {
         return proveedorService.getproveedor(id);
+
     }
-    @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable @RequestParam int id) {
+    @PutMapping("")
+    public proveedor updateProveedor(@RequestBody proveedor proveedor) {
+        return proveedorService.updateproveedor(proveedor);
+    }
+    @PostMapping("")
+    public proveedor addProveedor(@RequestBody proveedor proveedor) {
+        return proveedorService.postproveedor(proveedor);
+    }
+
+    @DeleteMapping("")
+    public void deleteProveedor(@RequestParam Integer id) {
         proveedorService.deleteproveedor(id);
     }
+
 }
+

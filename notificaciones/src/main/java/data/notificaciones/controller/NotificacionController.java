@@ -19,7 +19,7 @@ public class NotificacionController {
 
     }
 
-    @GetMapping("/{id}")
+    @GetMapping()
     public DTONotificaciones findById(@PathVariable int id) {
 
         return notificacionService.getNotificacionesById(id);
@@ -36,7 +36,7 @@ public class NotificacionController {
     }
 
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping()
     public void deleteById(@PathVariable int id)
     {
         notificacionService.deleteNotificaciones(id);
