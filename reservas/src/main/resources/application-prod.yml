@@ -1,11 +1,11 @@
 spring:
   application:
-    name: test.reservas
+    name: prod.reservas
 
   datasource:
-    url: ${TEST_DB_URL:jdbc:mysql://localhost:3306/test_reservas}
-    username: ${TEST_DB_USERNAME:root}
-    password: ${TEST_DB_PASSWORD:}
+    url: jdbc:mysql://localhost:3306/prod_reservas
+    username: prod
+    password: prod123
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
@@ -19,18 +19,8 @@ spring:
     locations: classpath:db/migration
     baseline-on-migrate: true
 
-  cloud:
-    discovery:
-      enabled: false
-
-eureka:
-  client:
-    enabled: false
-    register-with-eureka: false
-    fetch-registry: false
-
 server:
-  port: 0
+  port: ${PORT:8082}
 
 springdoc:
   swagger-ui:

@@ -1,0 +1,34 @@
+services:
+
+  mysql:
+    image: mysql:8.4
+    container_name: auditoria-mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: dev_auditoria
+      MYSQL_USER: dev
+      MYSQL_PASSWORD: dev123
+      MYSQL_ROOT_PASSWORD: root123
+    ports:
+      - "3307:3306"
+    volumes:
+      - ../docker/mysql/init:/docker-entrypoint-initdb.d
+
+  eurekaserver:
+    build:
+      context: ../eurekaserver
+    image: eurekaserver:1.0
+    container_name: auditoria-eurekaserver
+    ports:
+      - "8761:8761"
+
+  auditoria:
+    build:
+      context: .
+    image: auditoria:1.0
+    container_name: auditoria-service
+    depends_on:
+      - mysql
+      - eurekaserver
+    ports:
+      - "8080:8080"

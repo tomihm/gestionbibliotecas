@@ -2,7 +2,7 @@ services:
 
   mysql:
     image: mysql:8.4
-    container_name: mysql
+    container_name: gateway-mysql
     restart: always
     environment:
       MYSQL_DATABASE: dev_auditoria
@@ -12,21 +12,21 @@ services:
     ports:
       - "3307:3306"
     volumes:
-      - ./docker/mysql/init:/docker-entrypoint-initdb.d
+      - ../docker/mysql/init:/docker-entrypoint-initdb.d
 
   eurekaserver:
     build:
-      context: ./eurekaserver
+      context: ../eurekaserver
     image: eurekaserver:1.0
-    container_name: eurekaserver
+    container_name: gateway-eurekaserver
     ports:
       - "8761:8761"
 
   auditoria:
     build:
-      context: ./auditoria
+      context: ../auditoria
     image: auditoria:1.0
-    container_name: auditoria
+    container_name: gateway-auditoria
     depends_on:
       - mysql
       - eurekaserver
@@ -35,9 +35,9 @@ services:
 
   reservas:
     build:
-      context: ./reservas
+      context: ../reservas
     image: reservas:1.0
-    container_name: reservas
+    container_name: gateway-reservas
     depends_on:
       - mysql
       - eurekaserver
@@ -46,9 +46,9 @@ services:
 
   apigateway:
     build:
-      context: ./apigateway
+      context: .
     image: apigateway:1.0
-    container_name: apigateway
+    container_name: gateway-service
     depends_on:
       - auditoria
       - reservas

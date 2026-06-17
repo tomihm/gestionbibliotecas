@@ -26,3 +26,12 @@ eureka:
 
 server:
   port: 8082
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
+logging:
+  level:
+    dev.diemigo.reservas: INFO
+    org.hibernate.SQL: WARN
