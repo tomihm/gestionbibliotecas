@@ -11,6 +11,8 @@ services:
       MYSQL_ROOT_PASSWORD: root123
     ports:
       - "3307:3306"
+    volumes:
+      - ./docker/mysql/init:/docker-entrypoint-initdb.d
 
   eurekaserver:
     image: eurekaserver:1.0
@@ -27,11 +29,21 @@ services:
     ports:
       - "8080:8080"
 
+  reservas:
+    image: reservas:1.0
+    container_name: reservas
+    depends_on:
+      - mysql
+      - eurekaserver
+    ports:
+      - "8082:8082"
+
   apigateway:
     image: apigateway:1.0
     container_name: apigateway
     depends_on:
       - auditoria
+      - reservas
       - eurekaserver
     ports:
       - "8081:8081"

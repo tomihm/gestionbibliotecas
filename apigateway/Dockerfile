@@ -1,9 +1,22 @@
-FROM eclipse-temurin:21-jdk
+FROM eclipse-temurin:21-jdk AS build
 
 WORKDIR /app
 
-COPY target/apigateway-0.0.1-SNAPSHOT.jar app.jar
+COPY .mvn/ .mvn/
+COPY mvnw pom.xml ./
+COPY src/ src/
+
+RUN chmod +x mvnw
+RUN ./mvnw clean package -DskipTests
+
+FROM eclipse-temurin:21-jre
+
+WORKDIR /app
+
+COPY --from=build /app/target/apigateway-0.0.1-SNAPSHOT.jar app.jar
+
+ENV SPRING_PROFILES_ACTIVE=docker
 
 EXPOSE 8081
 
-ENTRYPOINT ["java","-jar","app.jar","--spring.profiles.active=docker"]
+ENTRYPOINT ["java","-jar","app.jar"]
