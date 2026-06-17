@@ -1,13 +1,16 @@
 package dev.diegoamigo.multas.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.*;
+import org.springframework.hateoas.RepresentationModel;
 
 @Data
-@AllArgsConstructor
+@Builder
 @NoArgsConstructor
-public class MultaRespuestaDTO {
+@AllArgsConstructor
+@EqualsAndHashCode(callSuper = false)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class MultaRespuestaDTO extends RepresentationModel<MultaRespuestaDTO> {
     private Long id;
     private Long prestamoId;
     private double monto;

@@ -1,7 +1,9 @@
-package dev.diegoamigo.prestamos.dto;
+package dev.diemigo.prestamos.dto;
 
 import jakarta.validation.constraints.NotBlank;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor

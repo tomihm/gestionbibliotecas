@@ -1,21 +1,22 @@
-package dev.diegoamigo.devoluciones.controller;
+package dev.diemigo.devoluciones.controller;
 
-import dev.diegoamigo.devoluciones.dto.DevolucionDTO;
-import dev.diegoamigo.devoluciones.dto.DevolucionRespuestaDTO;
-import dev.diegoamigo.devoluciones.service.DevolucionService;
+import dev.diemigo.devoluciones.dto.DevolucionDTO;
+import dev.diemigo.devoluciones.dto.DevolucionRespuestaDTO;
+import dev.diemigo.devoluciones.service.DevolucionService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
 @RequestMapping("/devoluciones")
 public class DevolucionController {
 
-    @Autowired
-    private DevolucionService service;
+    private final DevolucionService service;
+
+    public DevolucionController(DevolucionService service) {
+        this.service = service;
+    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

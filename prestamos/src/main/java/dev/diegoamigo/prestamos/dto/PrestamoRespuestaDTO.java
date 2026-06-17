@@ -1,13 +1,16 @@
-package dev.diegoamigo.prestamos.dto;
+package dev.diemigo.prestamos.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.*;
+import org.springframework.hateoas.RepresentationModel;
 
 @Data
-@AllArgsConstructor
+@Builder
 @NoArgsConstructor
-public class PrestamoRespuestaDTO {
+@AllArgsConstructor
+@EqualsAndHashCode(callSuper = false)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class PrestamoRespuestaDTO extends RepresentationModel<PrestamoRespuestaDTO> {
     private Long id;
     private String nombreCliente;
     private String libro;

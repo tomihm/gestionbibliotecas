@@ -1,7 +1,9 @@
-package dev.diegoamigo.prestamos.repository;
+package dev.diemigo.prestamos.repository;
 
-import dev.diegoamigo.prestamos.model.Prestamo;
+import dev.diemigo.prestamos.model.Prestamo;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface PrestamoRepository extends JpaRepository<Prestamo, Long> {
 }

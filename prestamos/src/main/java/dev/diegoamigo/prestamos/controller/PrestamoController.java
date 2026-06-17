@@ -1,21 +1,22 @@
-package dev.diegoamigo.prestamos.controller;
+package dev.diemigo.prestamos.controller;
 
-import dev.diegoamigo.prestamos.dto.PrestamoDTO;
-import dev.diegoamigo.prestamos.dto.PrestamoRespuestaDTO;
-import dev.diegoamigo.prestamos.service.PrestamoService;
+import dev.diemigo.prestamos.dto.PrestamoDTO;
+import dev.diemigo.prestamos.dto.PrestamoRespuestaDTO;
+import dev.diemigo.prestamos.service.PrestamoService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
 @RequestMapping("/prestamos")
 public class PrestamoController {
 
-    @Autowired
-    private PrestamoService service;
+    private final PrestamoService service;
+
+    public PrestamoController(PrestamoService service) {
+        this.service = service;
+    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
