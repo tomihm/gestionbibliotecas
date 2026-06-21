@@ -1,8 +1,8 @@
 services:
 
-  mysql:
+  mysql-auditoria:
     image: mysql:8.4
-    container_name: mysql
+    container_name: mysql-auditoria
     restart: always
     environment:
       MYSQL_DATABASE: dev_auditoria
@@ -11,27 +11,120 @@ services:
       MYSQL_ROOT_PASSWORD: root123
     ports:
       - "3307:3306"
+    volumes:
+      - ./docker/mysql/init:/docker-entrypoint-initdb.d
+    networks:
+      - microservices
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+      interval: 10s
+
+  mysql-reservas:
+    image: mysql:8.4
+    container_name: mysql-reservas
+    restart: always
+    environment:
+      MYSQL_DATABASE: dev_reservas
+      MYSQL_USER: dev
+      MYSQL_PASSWORD: dev123
+      MYSQL_ROOT_PASSWORD: root123
+    ports:
+      - "3308:3306"
+    volumes:
+      - ./docker/mysql/init:/docker-entrypoint-initdb.d
+    networks:
+      - microservices
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+      interval: 10s
 
   eurekaserver:
+    build:
+      context: ./eurekaserver
     image: eurekaserver:1.0
     container_name: eurekaserver
     ports:
       - "8761:8761"
+    networks:
+      - microservices
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8761/actuator/health"]
+      timeout: 10s
+      retries: 5
+      interval: 10s
 
   auditoria:
+    build:
+      context: ./auditoria
     image: auditoria:1.0
     container_name: auditoria
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
     depends_on:
-      - mysql
-      - eurekaserver
+      mysql-auditoria:
+        condition: service_healthy
+      eurekaserver:
+        condition: service_healthy
     ports:
       - "8080:8080"
+    networks:
+      - microservices
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      timeout: 10s
+      retries: 5
+      interval: 10s
+
+  reservas:
+    build:
+      context: ./reservas
+    image: reservas:1.0
+    container_name: reservas
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+    depends_on:
+      mysql-reservas:
+        condition: service_healthy
+      eurekaserver:
+        condition: service_healthy
+    ports:
+      - "8082:8082"
+    networks:
+      - microservices
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8082/actuator/health"]
+      timeout: 10s
+      retries: 5
+      interval: 10s
 
   apigateway:
+    build:
+      context: ./apigateway
     image: apigateway:1.0
     container_name: apigateway
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
     depends_on:
-      - auditoria
-      - eurekaserver
+      auditoria:
+        condition: service_healthy
+      reservas:
+        condition: service_healthy
+      eurekaserver:
+        condition: service_healthy
     ports:
       - "8081:8081"
+    networks:
+      - microservices
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8081/actuator/health"]
+      timeout: 10s
+      retries: 5
+      interval: 10s
+
+networks:
+  microservices:
+    driver: bridge

@@ -1,0 +1,7 @@
+CREATE DATABASE IF NOT EXISTS dev_auditoria;
+CREATE DATABASE IF NOT EXISTS dev_reservas;
+
+GRANT ALL PRIVILEGES ON dev_auditoria.* TO 'dev'@'%';
+GRANT ALL PRIVILEGES ON dev_reservas.* TO 'dev'@'%';
+
+FLUSH PRIVILEGES;

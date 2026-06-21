@@ -1,0 +1,20 @@
+services:
+
+  eurekaserver:
+    build:
+      context: .
+    image: eurekaserver:1.0
+    container_name: eurekaserver-service
+    ports:
+      - "8761:8761"
+    networks:
+      - eurekaserver-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8761/actuator/health"]
+      timeout: 10s
+      retries: 5
+      interval: 10s
+
+networks:
+  eurekaserver-network:
+    driver: bridge

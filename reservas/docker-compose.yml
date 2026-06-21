@@ -1,0 +1,64 @@
+services:
+
+  mysql:
+    image: mysql:8.4
+    container_name: reservas-mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: dev_reservas
+      MYSQL_USER: dev
+      MYSQL_PASSWORD: dev123
+      MYSQL_ROOT_PASSWORD: root123
+    ports:
+      - "3308:3306"
+    volumes:
+      - ../docker/mysql/init:/docker-entrypoint-initdb.d
+    networks:
+      - reservas-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+      interval: 10s
+
+  eurekaserver:
+    build:
+      context: ../eurekaserver
+    image: eurekaserver:1.0
+    container_name: reservas-eurekaserver
+    ports:
+      - "8761:8761"
+    networks:
+      - reservas-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8761/actuator/health"]
+      timeout: 10s
+      retries: 5
+      interval: 10s
+
+  reservas:
+    build:
+      context: .
+    image: reservas:1.0
+    container_name: reservas-service
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/dev_reservas
+    depends_on:
+      mysql:
+        condition: service_healthy
+      eurekaserver:
+        condition: service_healthy
+    ports:
+      - "8082:8082"
+    networks:
+      - reservas-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8082/actuator/health"]
+      timeout: 10s
+      retries: 5
+      interval: 10s
+
+networks:
+  reservas-network:
+    driver: bridge

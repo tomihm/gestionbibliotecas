@@ -3,7 +3,7 @@ spring:
     name: auditoria
 
   datasource:
-    url: jdbc:mysql://mysql:3306/dev_auditoria
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://mysql-auditoria:3306/dev_auditoria}
     username: dev
     password: dev123
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -28,5 +28,4 @@ eureka:
     level:
       org.flywaydb: DEBUG
       org.springframework.boot.autoconfigure.flyway: DEBUG
-
 
