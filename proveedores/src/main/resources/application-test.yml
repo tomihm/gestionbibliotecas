@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: test.proveedores
+
+  datasource:
+    url: ${TEST_DB_URL:jdbc:mysql://localhost:3306/test_proveedores?createDatabaseIfNotExist=true}
+    username: ${TEST_DB_USERNAME:root}
+    password: ${TEST_DB_PASSWORD:}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    database-platform: org.hibernate.dialect.MySQLDialect
+
+  cloud:
+    discovery:
+      enabled: false
+
+eureka:
+  client:
+    enabled: false
+    register-with-eureka: false
+    fetch-registry: false
+
+server:
+  port: 0
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html

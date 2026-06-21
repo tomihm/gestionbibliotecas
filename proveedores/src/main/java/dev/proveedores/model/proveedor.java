@@ -1,7 +1,6 @@
 package dev.proveedores.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Table(name ="proveedor")
 public class proveedor {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)@NotBlank
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id_proveedor;
     @NotNull
     private String nombre_proveedor;

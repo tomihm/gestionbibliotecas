@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: proveedores
+
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://mysql-proveedores:3306/dev_proveedores}
+    username: dev
+    password: dev123
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    database-platform: org.hibernate.dialect.MySQLDialect
+
+server:
+  port: 8083
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eurekaserver:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

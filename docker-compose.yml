@@ -42,6 +42,44 @@ services:
       retries: 10
       interval: 10s
 
+  mysql-proveedores:
+    image: mysql:8.4
+    container_name: mysql-proveedores
+    restart: always
+    environment:
+      MYSQL_DATABASE: dev_proveedores
+      MYSQL_USER: dev
+      MYSQL_PASSWORD: dev123
+      MYSQL_ROOT_PASSWORD: root123
+    ports:
+      - "3309:3306"
+    networks:
+      - microservices
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+      interval: 10s
+
+  mysql-notificaciones:
+    image: mysql:8.4
+    container_name: mysql-notificaciones
+    restart: always
+    environment:
+      MYSQL_DATABASE: dev_notificaciones
+      MYSQL_USER: dev
+      MYSQL_PASSWORD: dev123
+      MYSQL_ROOT_PASSWORD: root123
+    ports:
+      - "3310:3306"
+    networks:
+      - microservices
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+      interval: 10s
+
   eurekaserver:
     build:
       context: ./eurekaserver
@@ -101,6 +139,50 @@ services:
       retries: 5
       interval: 10s
 
+  proveedores:
+    build:
+      context: ./proveedores
+    image: proveedores:1.0
+    container_name: proveedores
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+    depends_on:
+      mysql-proveedores:
+        condition: service_healthy
+      eurekaserver:
+        condition: service_healthy
+    ports:
+      - "8083:8083"
+    networks:
+      - microservices
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8083/actuator/health"]
+      timeout: 10s
+      retries: 5
+      interval: 10s
+
+  notificaciones:
+    build:
+      context: ./notificaciones
+    image: notificaciones:1.0
+    container_name: notificaciones
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+    depends_on:
+      mysql-notificaciones:
+        condition: service_healthy
+      eurekaserver:
+        condition: service_healthy
+    ports:
+      - "8084:8084"
+    networks:
+      - microservices
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8084/actuator/health"]
+      timeout: 10s
+      retries: 5
+      interval: 10s
+
   apigateway:
     build:
       context: ./apigateway
@@ -112,6 +194,10 @@ services:
       auditoria:
         condition: service_healthy
       reservas:
+        condition: service_healthy
+      proveedores:
+        condition: service_healthy
+      notificaciones:
         condition: service_healthy
       eurekaserver:
         condition: service_healthy

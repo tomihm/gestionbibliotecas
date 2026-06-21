@@ -18,6 +18,14 @@ spring:
               uri: lb://RESERVAS
               predicates:
                 - Path=/api/reservas/**
+            - id: proveedores-service
+              uri: lb://PROVEEDORES
+              predicates:
+                - Path=/api/proveedor/**
+            - id: notificaciones-service
+              uri: lb://NOTIFICACIONES
+              predicates:
+                - Path=/api/notificaciones/**
 
 eureka:
   client:

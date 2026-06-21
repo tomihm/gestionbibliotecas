@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: prod.proveedores
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/prod_proveedores
+    username: prod
+    password: prod123
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    database-platform: org.hibernate.dialect.MySQLDialect
+
+server:
+  port: ${PORT:8083}
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

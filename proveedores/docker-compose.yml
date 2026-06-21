@@ -1,0 +1,61 @@
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: proveedores-mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: dev_proveedores
+      MYSQL_USER: dev
+      MYSQL_PASSWORD: dev123
+      MYSQL_ROOT_PASSWORD: root123
+    ports:
+      - "3309:3306"
+    networks:
+      - proveedores-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+      interval: 10s
+
+  eurekaserver:
+    build:
+      context: ../eurekaserver
+    image: eurekaserver:1.0
+    container_name: proveedores-eurekaserver
+    ports:
+      - "8761:8761"
+    networks:
+      - proveedores-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8761/actuator/health"]
+      timeout: 10s
+      retries: 5
+      interval: 10s
+
+  proveedores:
+    build:
+      context: .
+    image: proveedores:1.0
+    container_name: proveedores-service
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/dev_proveedores
+    depends_on:
+      mysql:
+        condition: service_healthy
+      eurekaserver:
+        condition: service_healthy
+    ports:
+      - "8083:8083"
+    networks:
+      - proveedores-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8083/actuator/health"]
+      timeout: 10s
+      retries: 5
+      interval: 10s
+
+networks:
+  proveedores-network:
+    driver: bridge

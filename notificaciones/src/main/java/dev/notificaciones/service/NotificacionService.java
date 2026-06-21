@@ -43,14 +43,16 @@ public class NotificacionService {
         Notificacion guardado = repositoryNotificacion.save(notificacion);
         return convertirDTO(guardado);
     }
-    public DTONotificaciones actualizarNotificacion(DTONotificaciones notificacionDTO) {
-        Notificacion notificacion = repositoryNotificacion.findById(notificacionDTO);{
-            if (notificacion == null){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"no se ha encontrado el archivo");
+    public DTONotificaciones actualizarNotificacion(int id, DTONotificaciones notificacionDTO) {
+        Notificacion notificacion = repositoryNotificacion.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No se ha encontrado la notificacion"));
 
-            }
-        }
-        return convertirDTO(notificacion);
+        notificacion.setDia_entrega(notificacionDTO.getDia_entrega());
+        notificacion.setNotificacion_titulo(notificacionDTO.getNotificacion_titulo());
+        notificacion.setDescripcion(notificacionDTO.getDescripcion());
+
+        Notificacion actualizado = repositoryNotificacion.save(notificacion);
+        return convertirDTO(actualizado);
     }
 
 

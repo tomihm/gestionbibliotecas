@@ -7,7 +7,7 @@ spring:
 
   cloud:
     discovery:
-      enabled: false
+      enabled: true
     gateway:
       server:
         webmvc:
@@ -20,6 +20,14 @@ spring:
               uri: ${RESERVAS_SERVICE_URL:http://localhost:8082}
               predicates:
                 - Path=/api/reservas/**
+            - id: proveedores-service
+              uri: ${PROVEEDORES_SERVICE_URL:http://localhost:8083}
+              predicates:
+                - Path=/api/proveedor/**
+            - id: notificaciones-service
+              uri: ${NOTIFICACIONES_SERVICE_URL:http://localhost:8084}
+              predicates:
+                - Path=/api/notificaciones/**
 
 eureka:
   client:
