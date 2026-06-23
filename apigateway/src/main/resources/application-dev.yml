@@ -38,6 +38,10 @@ spring:
               uri: lb://MULTAS
               predicates:
                 - Path=/api/multas/**
+            - id: usuarios-service
+              uri: lb://USUARIOS
+              predicates:
+                - Path=/api/usuarios/**
 
 eureka:
   client:

@@ -20,7 +20,7 @@ spring:
     baseline-on-migrate: true
 
 server:
-  port: ${PORT}
+  port: ${PORT:8088}
 
 springdoc:
   swagger-ui:

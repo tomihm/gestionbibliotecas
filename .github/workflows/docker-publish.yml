@@ -106,6 +106,16 @@ jobs:
       - name: Construir y subir Docker Images
         uses: docker/build-push-action@v7
         with:
+          context: ./usuarios
+          file: ./usuarios/Dockerfile
+          push: true
+          tags: |
+            ${{ env.REGISTRY }}/${{ env.IMAGE_PREFIX }}-usuarios:latest
+            ${{ env.REGISTRY }}/${{ env.IMAGE_PREFIX }}-usuarios:${{ github.sha }}
+
+      - name: Construir y subir Docker Images
+        uses: docker/build-push-action@v7
+        with:
           context: ./apigateway
           file: ./apigateway/Dockerfile
           push: true

@@ -137,6 +137,25 @@ services:
       retries: 10
       interval: 10s
 
+  mysql-usuarios:
+    image: mysql:8.4
+    container_name: mysql-usuarios
+    restart: always
+    environment:
+      MYSQL_DATABASE: dev_usuarios
+      MYSQL_USER: dev
+      MYSQL_PASSWORD: dev123
+      MYSQL_ROOT_PASSWORD: root123
+    ports:
+      - "3314:3306"
+    networks:
+      - microservices
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+      interval: 10s
+
   eurekaserver:
     build:
       context: ./eurekaserver
@@ -306,6 +325,28 @@ services:
       retries: 5
       interval: 10s
 
+  usuarios:
+    build:
+      context: ./usuarios
+    image: usuarios:1.0
+    container_name: usuarios
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+    depends_on:
+      mysql-usuarios:
+        condition: service_healthy
+      eurekaserver:
+        condition: service_healthy
+    ports:
+      - "8088:8088"
+    networks:
+      - microservices
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8088/actuator/health"]
+      timeout: 10s
+      retries: 5
+      interval: 10s
+
   apigateway:
     build:
       context: ./apigateway
@@ -327,6 +368,8 @@ services:
       devoluciones:
         condition: service_healthy
       multas:
+        condition: service_healthy
+      usuarios:
         condition: service_healthy
       eurekaserver:
         condition: service_healthy

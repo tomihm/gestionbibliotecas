@@ -11,8 +11,8 @@
 	<groupId>dev.diemigo</groupId>
 	<artifactId>usuarios</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name/>
-	<description/>
+	<name>usuarios</name>
+	<description>Microservicio de Usuarios</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -142,6 +142,33 @@
 
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.12</version>
+				<configuration>
+					<excludes>
+						<exclude>dev/diemigo/usuarios/exception/GlobalExceptionHandler*</exclude>
+						<exclude>dev/diemigo/usuarios/assembler/UsuarioModelAssembler*</exclude>
+						<exclude>dev/diemigo/usuarios/config/*</exclude>
+						<exclude>dev/diemigo/usuarios/UsuariosApplication*</exclude>
+					</excludes>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>report</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>

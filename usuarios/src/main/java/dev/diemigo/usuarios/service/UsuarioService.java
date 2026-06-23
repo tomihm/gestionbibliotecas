@@ -3,6 +3,7 @@ package dev.diemigo.usuarios.service;
 import dev.diemigo.usuarios.dto.UsuarioRespuestaDTO;
 import dev.diemigo.usuarios.exception.NotFoundException;
 import dev.diemigo.usuarios.model.Usuario;
+import dev.diemigo.usuarios.model.UsuarioRol;
 import dev.diemigo.usuarios.repository.UsuarioRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,6 +35,7 @@ public class UsuarioService {
         usuario.setCorreo(nuevoUsuarioDTO.getCorreo());
         usuario.setContrasenia("password123");
         usuario.setActivo(true);
+        usuario.setRol(UsuarioRol.USUARIO);
 
         Usuario guardado = usuarioRepository.save(usuario);
 

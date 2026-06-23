@@ -40,6 +40,10 @@ spring:
               uri: ${MULTAS_SERVICE_URL:http://localhost:8087}
               predicates:
                 - Path=/api/multas/**
+            - id: usuarios-service
+              uri: ${USUARIOS_SERVICE_URL:http://localhost:8088}
+              predicates:
+                - Path=/api/usuarios/**
 
 eureka:
   client:
