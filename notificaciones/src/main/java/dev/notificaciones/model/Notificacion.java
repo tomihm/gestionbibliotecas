@@ -1,7 +1,11 @@
-package data.reservas.model;
+package dev.notificaciones.model;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,17 +17,22 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "Reserva")
-public class Reserva {
+@Table(name = "notificaciones")
+public class Notificacion {
+
     @Id
-    @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_reserva;
+    private Integer id;
 
     @NotNull
-    @Column
-    private Date fecha_reserva;
+    @Column(name = "dia_entrega", nullable = false)
+    private Date dia_entrega;
 
+    @NotNull
+    @Column(name = "notificacion_titulo", nullable = false)
+    private String notificacion_titulo;
 
-
+    @NotNull
+    @Column(nullable = false)
+    private String descripcion;
 }
