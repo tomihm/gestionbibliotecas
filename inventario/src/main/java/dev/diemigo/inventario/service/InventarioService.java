@@ -4,8 +4,11 @@ import dev.diemigo.inventario.dto.InventarioDTO;
 import dev.diemigo.inventario.exception.NotFoundException;
 import dev.diemigo.inventario.model.Inventario;
 import dev.diemigo.inventario.repository.InventarioRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,46 +18,72 @@ public class InventarioService {
     @Autowired
     private InventarioRepository inventarioRepository;
 
+    private static final Logger log = LoggerFactory.getLogger(InventarioService.class);
+
     private InventarioDTO convertirADTO(Inventario inventario) {
         return new InventarioDTO(inventario.getTitulo(),inventario.getEstado(),inventario.getUbicacion());
     }
 
+    @Transactional
     public InventarioDTO crearInventario(InventarioDTO nuevoInventarioDTO) {
+
+        log.debug("Creando inventario en la base de datos: {}", nuevoInventarioDTO);
+
         Inventario inventario = new Inventario();
-        inventario.setEstado(nuevoInventarioDTO.getEstado());
         inventario.setTitulo(nuevoInventarioDTO.getTitulo());
+        inventario.setEstado(nuevoInventarioDTO.getEstado());
         inventario.setUbicacion(nuevoInventarioDTO.getUbicacion());
 
         Inventario guardado = inventarioRepository.save(inventario);
+
+        log.info("Inventario guardado en la base de datos: {}", guardado);
         return convertirADTO(guardado);
     }
 
-    public InventarioDTO actualizarInventario(int id, InventarioDTO dto) {
+    @Transactional
+    public InventarioDTO actualizarInventario(Long id, InventarioDTO dto) {
+        log.debug("Actualizando inventario en la base de datos: {}", dto);
         return inventarioRepository.findById(id)
                 .map(inventario -> {
                     inventario.setTitulo(dto.getTitulo());
+                    inventario.setEstado(dto.getEstado());
+                    inventario.setUbicacion(dto.getUbicacion());
+                    log.info("Inventario actualizado en la base de datos: {}", id);
                     return convertirADTO(inventarioRepository.save(inventario));
                 })
-                .orElseThrow(() -> new RuntimeException("Objeto con ID " + id + " no encontrado"));
+                .orElseThrow(() -> new RuntimeException("Inventario con ID " + id + " no encontrado"));
     }
 
-    public List<InventarioDTO> listarUsuarios() {
+    @Transactional(readOnly = true)
+    public List<InventarioDTO> listarInventarios() {
+
+        log.debug("Listando Inventarios en la base de datos");
         return inventarioRepository.findAll()
                 .stream()
                 .map(this::convertirADTO)
                 .collect(Collectors.toList());
     }
 
-    public InventarioDTO buscarPorId(int id) {
+    @Transactional(readOnly = true)
+    public InventarioDTO buscarPorId(Long id) {
+
+        log.debug("Buscando inventario en la base de datos: {}", id);
         Inventario inventario = inventarioRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("No se encontró el objeto con ID: " + id));
+                .orElseThrow(() -> new NotFoundException("No se encontró el inventario con ID: " + id));
+
+        log.info("inventario encontrado en la base de datos: {}", inventario);
         return convertirADTO(inventario);
     }
 
-    public void eliminarInventario(int id) {
+    public void eliminarInventario(Long id) {
+
+        log.debug("Eliminando inventario en la base de datos: {}", id);
+
         if (!inventarioRepository.existsById(id)) {
-            throw new RuntimeException("No se puede eliminar: El objeto no existe");
+            throw new RuntimeException("No se puede eliminar: El inventario no existe");
         }
+
+        log.info("Inventario eliminado en la base de datos: {}", id);
         inventarioRepository.deleteById(id);
     }
 }

@@ -1,14 +1,16 @@
 package dev.diemigo.inventario.dto;
 
+
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.hateoas.RepresentationModel;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class InventarioDTO {
+@Builder
+@EqualsAndHashCode(callSuper = false)
+public class InventarioDTO extends RepresentationModel<InventarioDTO> {
 
     @NotBlank(message = "Debe tener título")
     private String titulo;

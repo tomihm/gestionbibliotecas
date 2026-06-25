@@ -7,7 +7,5 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface InventarioRepository extends JpaRepository<Inventario,Integer> {
-
-    Optional<Inventario> findByTitulo(String titulo);
+public interface InventarioRepository extends JpaRepository<Inventario,Long> {
 }
