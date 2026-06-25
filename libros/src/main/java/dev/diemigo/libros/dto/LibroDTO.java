@@ -2,14 +2,16 @@ package dev.diemigo.libros.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.hateoas.RepresentationModel;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class LibroDTO {
+@Builder
+@EqualsAndHashCode(callSuper = false)
+public class LibroDTO extends RepresentationModel<LibroDTO> {
+
 
     @NotNull
     private String titulo;

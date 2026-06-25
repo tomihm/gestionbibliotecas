@@ -156,6 +156,25 @@ services:
       retries: 10
       interval: 10s
 
+  mysql-libros:
+    image: mysql:8.4
+    container_name: mysql-libros
+    restart: always
+    environment:
+      MYSQL_DATABASE: dev_libros
+      MYSQL_USER: dev
+      MYSQL_PASSWORD: dev123
+      MYSQL_ROOT_PASSWORD: root123
+    ports:
+      - "3315:3306"
+    networks:
+      - microservices
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      timeout: 20s
+      retries: 10
+      interval: 10s
+
   eurekaserver:
     build:
       context: ./eurekaserver
@@ -347,6 +366,29 @@ services:
       retries: 5
       interval: 10s
 
+  libros:
+    build:
+      context: ./libros
+    image: libros:1.0
+    container_name: libros
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+    depends_on:
+      mysql-libros:
+        condition: service_healthy
+      eurekaserver:
+        condition: service_healthy
+    ports:
+      - "8089:8089"
+    networks:
+      - microservices
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8088/actuator/health" ]
+      timeout: 10s
+      retries: 5
+      interval: 10s
+
+
   apigateway:
     build:
       context: ./apigateway
@@ -370,6 +412,8 @@ services:
       multas:
         condition: service_healthy
       usuarios:
+        condition: service_healthy
+      libros:
         condition: service_healthy
       eurekaserver:
         condition: service_healthy

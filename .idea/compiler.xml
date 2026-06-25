@@ -23,6 +23,7 @@
         <module name="notificaciones" />
         <module name="reservas" />
         <module name="auditoria" />
+        <module name="usuarios" />
         <module name="inventario" />
         <module name="prestamos" />
         <module name="devoluciones" />
