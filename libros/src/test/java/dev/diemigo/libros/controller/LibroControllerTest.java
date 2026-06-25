@@ -3,7 +3,7 @@ package dev.diemigo.libros.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.diemigo.libros.assembler.LibrosModelAssembler;
 import dev.diemigo.libros.dto.LibroDTO;
-import dev.diemigo.libros.exception.RequestException;
+import dev.diemigo.libros.exception.NotFoundException;
 import dev.diemigo.libros.service.LibroService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -44,13 +44,14 @@ class LibroControllerTest {
     void debeRetornar200CuandoConsultaPorId() throws Exception {
 
         LibroDTO dto = LibroDTO.builder()
-                .id(1L)
                 .titulo("Harry Potter")
                 .autor("J.K. Rowling")
                 .build();
 
         Mockito.when(libroService.buscarPorId(1L))
                 .thenReturn(dto);
+        Mockito.when(librosModelAssembler.toModel(any(LibroDTO.class)))
+                .thenAnswer(invocation -> invocation.getArgument(0));
 
         mockMvc.perform(get("/api/libros/1"))
                 .andExpect(status().isOk());
@@ -61,25 +62,26 @@ class LibroControllerTest {
     void debeRetornar200CuandoConsultaTodos() throws Exception {
 
         LibroDTO dto = LibroDTO.builder()
-                .id(1L)
                 .titulo("Harry Potter")
                 .autor("J.K. Rowling")
                 .build();
 
         Mockito.when(libroService.listarLibros())
                 .thenReturn(List.of(dto));
+        Mockito.when(librosModelAssembler.toModel(any(LibroDTO.class)))
+                .thenAnswer(invocation -> invocation.getArgument(0));
 
         mockMvc.perform(get("/api/libros"))
                 .andExpect(status().isOk());
     }
 
     @Test
-    @DisplayName("Debe lanzar RequestException cuando no hay libros")
+    @DisplayName("Debe lanzar NotFoundException cuando no hay libros")
     void debeLanzarExcepcionCuandoListaEstaVacia() {
         Mockito.when(libroService.listarLibros())
                 .thenReturn(List.of());
 
-        assertThrows(RequestException.class, () -> libroController().getLibros());
+        assertThrows(NotFoundException.class, () -> libroController().getLibros());
     }
 
     @Test
@@ -92,13 +94,14 @@ class LibroControllerTest {
                 .build();
 
         LibroDTO salida = LibroDTO.builder()
-                .id(1L)
                 .titulo("Harry Potter")
                 .autor("J.K. Rowling")
                 .build();
 
         Mockito.when(libroService.crearLibro(any(LibroDTO.class)))
                 .thenReturn(salida);
+        Mockito.when(librosModelAssembler.toModel(any(LibroDTO.class)))
+                .thenAnswer(invocation -> invocation.getArgument(0));
 
         mockMvc.perform(post("/api/libros")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -110,7 +113,6 @@ class LibroControllerTest {
     @DisplayName("Debe retornar 204 al eliminar un libro")
     void debeRetornar204CuandoElimina() throws Exception {
         LibroDTO dto = LibroDTO.builder()
-                .id(1L)
                 .titulo("Harry Potter")
                 .autor("J.K. Rowling")
                 .build();
@@ -135,13 +137,14 @@ class LibroControllerTest {
                 .build();
 
         LibroDTO salida = LibroDTO.builder()
-                .id(1L)
                 .titulo("Nuevo Titulo")
                 .autor("Nuevo Autor")
                 .build();
 
         Mockito.when(libroService.actualizarLibro(any(Long.class), any(LibroDTO.class)))
                 .thenReturn(salida);
+        Mockito.when(librosModelAssembler.toModel(any(LibroDTO.class)))
+                .thenAnswer(invocation -> invocation.getArgument(0));
 
         mockMvc.perform(put("/api/libros/1")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -151,8 +154,8 @@ class LibroControllerTest {
 
     private LibroController libroController() {
         LibroController controller = new LibroController();
-        org.springframework.test.util.ReflectionTestUtils.setField(controller, "LibroService", libroService);
-        org.springframework.test.util.ReflectionTestUtils.setField(controller, "LibrosModelAssembler", librosModelAssembler);
+        org.springframework.test.util.ReflectionTestUtils.setField(controller, "libroService", libroService);
+        org.springframework.test.util.ReflectionTestUtils.setField(controller, "libroModelAssembler", librosModelAssembler);
         return controller;
     }
 

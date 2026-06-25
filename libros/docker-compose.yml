@@ -54,7 +54,7 @@ services:
     networks:
       - libros-network
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8088/actuator/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:8089/actuator/health"]
       timeout: 10s
       retries: 5
       interval: 10s

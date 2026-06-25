@@ -1,7 +1,7 @@
 CREATE TABLE libros(
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    titulo VARCHAR(20),
-    autor VARCHAR(35) NOT NULL,
-    categoria VARCHAR(15),
+    titulo VARCHAR(255),
+    autor VARCHAR(255) NOT NULL,
+    categoria VARCHAR(100),
     isbn VARCHAR(17)
 );

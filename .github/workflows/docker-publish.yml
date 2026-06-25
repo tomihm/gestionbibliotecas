@@ -116,6 +116,16 @@ jobs:
       - name: Construir y subir Docker Images
         uses: docker/build-push-action@v7
         with:
+          context: ./libros
+          file: ./libros/Dockerfile
+          push: true
+          tags: |
+            ${{ env.REGISTRY }}/${{ env.IMAGE_PREFIX }}-libros:latest
+            ${{ env.REGISTRY }}/${{ env.IMAGE_PREFIX }}-libros:${{ github.sha }}
+
+      - name: Construir y subir Docker Images
+        uses: docker/build-push-action@v7
+        with:
           context: ./apigateway
           file: ./apigateway/Dockerfile
           push: true

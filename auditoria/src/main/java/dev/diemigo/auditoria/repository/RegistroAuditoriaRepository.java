@@ -13,4 +13,5 @@ public interface RegistroAuditoriaRepository extends JpaRepository<RegistroAudit
     List<RegistroAuditoria> findByServicioOrigen(String servicioOrigen);
 
     List<RegistroAuditoria> findByResultado(String resultado);
+
 }

@@ -30,4 +30,4 @@ eureka:
       org.springframework.boot.autoconfigure.flyway: DEBUG
 
 server:
-  port: 8088
+  port: 8089

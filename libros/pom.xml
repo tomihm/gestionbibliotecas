@@ -152,6 +152,7 @@
 						<exclude>dev/diemigo/libros/assembler/LibrosModelAssembler*</exclude>
 						<exclude>dev/diemigo/libros/config/*</exclude>
 						<exclude>dev/diemigo/libros/LibrosApplication*</exclude>
+						<exclude>dev/diemigo/libros/DataLoader*</exclude>
 					</excludes>
 				</configuration>
 				<executions>
